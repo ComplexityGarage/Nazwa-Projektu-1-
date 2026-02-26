@@ -1,0 +1,44 @@
+#include <QMC5883LCompass.h>
+
+QMC5883LCompass compass;
+
+void setup() {
+  Serial.begin(9600);
+  
+  // Initialize the sensor
+  compass.init();
+
+  // Set up your requested pins
+  pinMode(8, OUTPUT);
+  pinMode(9, OUTPUT);
+
+
+  //Serial.println("QMC5883L initialized using QMC5883LCompass library.");
+}
+
+void loop() {
+  // Apply your pin states
+  digitalWrite(8, HIGH);
+  digitalWrite(9, LOW);
+  // Read values from the sensor
+  compass.read();
+
+  // Get X, Y, Z raw values
+  int x = compass.getX();
+  int y = compass.getY();
+  int z = compass.getZ();
+
+  // Get the azimuth (0-359 degrees)
+  int azimuth = compass.getAzimuth();
+
+  // Print results, format readable by python
+  Serial.print(x);
+  Serial.print(",");
+  Serial.print(y);
+  Serial.print(",");
+  Serial.print(z);
+  Serial.print(",");
+  Serial.println(azimuth);
+
+  delay(100);
+}
