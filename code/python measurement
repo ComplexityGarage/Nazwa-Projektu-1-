@@ -1,0 +1,121 @@
+#cell 0
+
+"""
+Cells:
+0: import modules
+1: connect to arduino
+2: create list for data
+3: perform measurement
+4: list with heights (or other independent variable) + converting data to array and plotting
+5: plot all data, from different sets
+6: save all data as .npy arrays
+
+To run this code, perform the following steps.
+a) After opening the file, run cell 0 and 1.
+b) To start a new measurement set, run cell 2. 
+c) Set h to the desired value and run cell 3. While it is running, at the value of h to array h1.
+d) Repeat (c) for different values of h.
+e) Run cell 4 to save the data in an array and plot it (set i to the desired variable).
+f) (optional) To start a second set of measurements, change the number in variable in 
+    variables means_tot1, stds_tot1, h1, means1 and stds1 to a new number. Now repeat
+    steps (b)-(e).
+g) (optional) Plot all data together by running cell 5 (and choosing the right variable to plot)
+h) Run cell 6 with all collected data to save it.
+"""
+
+import serial
+import numpy as np
+import time
+import matplotlib.pyplot as plt
+
+#%% cell 1
+
+#connect to arduino, run once at beginning
+ser = serial.Serial('COM7',9600,timeout=1)
+time.sleep(2)
+
+#%% cell 2
+#create array for data, run only before starting any measurement!
+"""
+If you want multiple sets of measurements, e.g. for different x positions of magnetometer,
+then you can change means_tot1 tot means_tot2 and repeat the process. Be careful,
+since you also need to change all other variables with a number at the end, without 
+overwriting the old ones!
+"""
+means_tot1 = []
+stds_tot1 = []
+#%% cell 3
+
+N = 500 #sample size
+data_total = np.zeros((N,4)) #x,y,z,azimuth measurements
+
+"""
+looping until there are 500 data points.
+reason for while loop is that the python code loops faster than arduino measurements,
+so not every measurement is proper
+"""
+n = 0
+while n < N:
+    if ser.in_waiting > 0:
+        #reads data
+        raw_line = ser.readline().decode('utf-8',errors='ignore').rstrip()
+        ser.reset_input_buffer() #should help prevent errors
+        
+        #converts raw data line to a list of four values
+        data_list = np.asarray(raw_line.split(','))
+        data_list = [int(i) for i in data_list]
+        
+        #if the measurement is proper (no missing values), add it to data
+        if len(data_list) == 4:
+            data_total[n] = data_list
+            print(data_list)
+            n += 1 
+            
+            #print if done
+            if n==N:
+                print("done")
+                
+            try:
+                x = data_list[0]
+                y = data_list[1]
+                z = data_list[2]
+                az = data_list[3]
+                #print(f"x: {x} | y: {y} | z: {z} | az: {az}")
+            except ValueError:
+                print("Received a corrupted line")
+                
+
+#calculates means and stds, and that is the info we want to save
+means_tot1.append(np.mean(data_total,axis=0))
+stds_tot1.append(np.std(data_total,axis=0))
+
+#%% cell 4
+#h is the array with heights
+h1 =  np.array([9.7,10.5,10.5,10.8,11.6,12.4,12.4,13.7,12.0,11.5,10.4,9.8,9.2,10])-6.1 #5cm
+h2 = np.array([10.5,11.7,11.1,9.7,9.5,9.1,9.5,9.5,9.3,9.9,10.1,10.4,10.2,9.8])-6.1 #4cm
+h3 = np.array([9.4,9.1,9.9,10.3,10.8,11.2,16.9,23.3,9.9,9.8,9.7,9.5,12.8])-6.4 #3cm / 3mm from meter base
+h4 = np.array([9.3,9.6,10.1,10.4,9.8,9.5,13.9,10.9,10.3,10.5,10.7,12.2,10])-6.4 #4.1cm
+
+means1 = np.asarray(means_tot1)
+stds1 = np.asarray(stds_tot1)
+i=3
+plt.errorbar(h1,means1[:,i],yerr=stds1[:,i],fmt='.',label=f'b=4.1, val {i}')
+
+
+#%% cell 5
+#plotting all data
+i=3 #desired variable (x,y,z,azimuth)
+plt.errorbar(h1,means1[:,i],yerr=stds1[:,i],fmt='.',label=f'b=5, val {i}')
+plt.errorbar(h2,means2[:,i],yerr=stds2[:,i],fmt='.',label=f'b=4, val {i}')
+plt.errorbar(h3,means3[:,i],yerr=stds3[:,i],fmt='.',label=f'b=3, val {i}')
+plt.errorbar(h4,means4[:,i],yerr=stds4[:,i],fmt='.',label=f'b=4.1, val {i}')
+plt.legend()
+plt.xlabel("h")
+plt.ylabel("val")
+plt.xlim(2.5,6)
+#plt.ylim(-5000,25000)
+
+#%% cell 6
+#saving all data
+b = np.array([5,4,3,4.1])
+np.savez("data", h1=h1,h2=h2,h3=h3,h4=h4,m1=means1,m2=means2,m3=means3,m4=means4,s1=stds1,s2=stds2,s3=stds3,s4=stds4,b=b)
