@@ -44,6 +44,13 @@ By attaching the a magnet holder to the end of the arm, it should be possible to
 # Magnetic field measurements
 We studied the shape of the magnetic field with the hope to discover the potential minimum. We used the GY-271 magnetometer, which measures all three cartesian components. The z-component is vertical. First we used the weaker magnets as a rotor, and then the stronger ones. The results are presented below. The values are not calibrated, but we assume a monotonous relation between the units of the magnetometer and the magnetic field strength, and a zero bias value. Then the location of the minima, maxima and the point where B=0 are accurately represented by this data. It is of course a very rough analysis, so further research is needed to determine the accuracy of our results, and how it relates exactly to the equilibrium position of the floater. 
 
+<img width="413" height="333" alt="image" src="https://github.com/user-attachments/assets/31137d9d-b01a-46d8-94f1-4386989a9773" />
+<img width="413" height="333" alt="image" src="https://github.com/user-attachments/assets/7ca00add-a01d-42ae-833d-061d48003f91" />
+<img width="413" height="333" alt="image" src="https://github.com/user-attachments/assets/9f76efa9-c032-4fc8-9369-649c58a10c68" />
+<img width="400" height="333" alt="image" src="https://github.com/user-attachments/assets/76045a86-f2ec-4da0-86fb-eba711c5ba6f" />
+
+
+
 # Levitation attempts
 
 # Authors
