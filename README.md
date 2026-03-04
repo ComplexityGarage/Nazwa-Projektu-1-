@@ -13,7 +13,7 @@ Polarity free repulsion (PFR) is a magnetic levitation technique in which one ma
 
 # Setup (levitation)
 
-The setup can be seen in the images below. The motor itself is held by a 3D printed holder. The holder is connected to aluminium frames, which dampen vibrations of the motor. This is essential for stable levitation. The motor rotates at a constant frequency, and is controlled via the HW-095 motor driver. The motor driver is connected to a programmable power supply and arduino. The arduino determines whether the motor is on, and the motor speed scales linearly with voltage on the power supply. ...cm under the motor there is an aluminium plate of dimensions (...cm), which help stabilize the floater via eddy currents.
+The setup can be seen in the images below. The motor itself is held by a 3D printed holder. The holder is connected to aluminium frames, which dampen vibrations of the motor. This is essential for stable levitation. The motor rotates at a constant frequency, and is controlled via the HW-095 motor driver. The motor driver is connected to a programmable power supply and arduino. The arduino determines whether the motor is on, and the motor speed scales linearly with voltage on the power supply. ...cm under the motor there is an aluminium plate of dimensions (8,8 x 10,2 x 2 cm), which help stabilize the floater via eddy currents.
 
 <img width="375" height="432" alt="20260213_155959" src="https://github.com/user-attachments/assets/3695e9be-dac9-4c5b-a715-774f4b56ab3e" />
 
