@@ -51,6 +51,13 @@ We studied the shape of the magnetic field with the hope to discover the potenti
 
 The graphs above show the magnetic field strength, in the units of the magnetometer, as a function of height difference between rotor and floater. This was done for the weaker of the two magnets. THis was done for different horizontal offsets b from the rotor axis. As can be seen, for most values of b, there is a clear relation between h and m. It is interesting to note the differences between the x and y graphs, as it means that there is some sort of symmetry breaking.
 
+<img width="413" height="333" alt="image" src="https://github.com/user-attachments/assets/1bcdedcf-a471-45df-9407-41132463c421" />
+<img width="413" height="333" alt="image" src="https://github.com/user-attachments/assets/569859dc-062c-44c0-b732-c2c51cd62d73" />
+<img width="413" height="333" alt="image" src="https://github.com/user-attachments/assets/9758f41d-0a7b-44a4-a9d6-7dea3e363818" />
+<img width="400" height="333" alt="image" src="https://github.com/user-attachments/assets/e566ca10-9892-4732-b6f1-f998983e2030" />
+
+These graphs show the height-magnetic field strength relation for the stronger rotor magnet. Here, the different colors do not indicate horizontal offset, but the voltage applied over the motor (which is proportional to the motor speed). We do not see a significant difference between 9V and 10V.
+
 
 # Levitation attempts
 We did not manage to achieve levitation. However, we now think that we might have oriented the rotor magnet incorrectly, as its poles should probably be horizontal and not vertical.
